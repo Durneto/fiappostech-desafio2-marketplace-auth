@@ -11,7 +11,7 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0-nanoserver-1809 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/auth/auth.csproj", "src/auth/"]
+COPY ["src/auth/AuthApi.csproj", "src/auth/"]
 RUN dotnet restore "./src/auth/AuthApi.csproj"
 COPY . .
 WORKDIR "/src/src/auth"
