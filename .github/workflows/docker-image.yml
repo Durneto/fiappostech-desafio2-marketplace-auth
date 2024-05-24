@@ -1,4 +1,4 @@
-name: Build and Run Docker Container
+name: CI/ID Build and Run Docker Container
 
 on:
   push:
