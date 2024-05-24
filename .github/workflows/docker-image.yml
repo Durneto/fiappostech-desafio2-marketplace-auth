@@ -1,4 +1,4 @@
-name: CI/ID Build and Run Docker Container
+name: CI/CD Build and Run Docker Container
 
 on:
   push:
@@ -24,16 +24,20 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t auth-app:latest -f ./src/auth/Dockerfile .
+        docker build -t fiappostech-desafio2-marketplace-auth:latest -f ./src/auth/Dockerfile .
+
+    - name: Tag Docker image
+      run: |
+        docker tag fiappostech-desafio2-marketplace-auth:latest ${{ secrets.DOCKER_USERNAME }}/fiappostech-desafio2-marketplace-auth:latest
 
     - name: Push Docker image
       run: |
-        docker push ${{ secrets.DOCKER_USERNAME }}/auth-app:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/fiappostech-desafio2-marketplace-auth:latest
 
     - name: Run Docker container
       run: |
-        docker run -d -p 8080:8080 -p 8081:8081 --name auth-app-container auth-app:latest
+        docker run -d -p 8080:8080 -p 8081:8081 --name auth-app-container ${{ secrets.DOCKER_USERNAME }}/fiappostech-desafio2-marketplace-auth:latest
 
     - name: Verify Docker container is running
       run: |
-        docker ps -a        
+        docker ps -a
