@@ -25,6 +25,6 @@ jobs:
     - name: Build and Push Docker images
       uses: docker/build-push-action@v5.0.0
       with:
-        context: .
+        context: ./src/auth
         tags: 'durneto/fiappostech-desafio2-marketplace-auth:latest'
         push: true        
