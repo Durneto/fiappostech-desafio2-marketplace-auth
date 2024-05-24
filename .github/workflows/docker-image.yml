@@ -22,14 +22,9 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build Docker image
-      run: |
-        docker build -t auth-app:latest -f ./src/auth/Dockerfile .
-
-    - name: Run Docker container
-      run: |
-        docker run -d -p 8080:8080 -p 8081:8081 --name auth-app-container auth-app:latest
-
-    - name: Verify Docker container is running
-      run: |
-        docker ps -a
+    - name: Build and Push Docker images
+      uses: docker/build-push-action@v5.0.0
+      with:
+        context: .
+        tags: 'durneto/fiappostech-desafio2-marketplace-auth:latest'
+        push: true        
