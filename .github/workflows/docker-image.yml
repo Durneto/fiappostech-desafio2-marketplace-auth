@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  build:
+  build_and_test_and_run:
     runs-on: ubuntu-latest
 
     steps:
@@ -34,18 +34,9 @@ jobs:
       run: |
         docker push ${{ secrets.DOCKER_USERNAME }}/fiappostech-desafio2-marketplace-auth:latest
         
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Run tests
-        run: dotnet test
+    - name: Run tests
+      run: dotnet test
 
-  run:
-    runs-on: ubuntu-latest
-
-    steps:
     - name: Run Docker container
       run: |
         docker run -d -p 8080:8080 -p 8081:8081 --name auth-app-container ${{ secrets.DOCKER_USERNAME }}/fiappostech-desafio2-marketplace-auth:latest
